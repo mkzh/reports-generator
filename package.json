@@ -1,0 +1,28 @@
+{
+  "name": "reports-generator",
+  "version": "0.0.1",
+  "description": "Pdf/excel/html report generator with a focus on client-side generation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bayofpigs/reports-generator"
+  },
+  "keywords": [
+    "excel",
+    "pdf",
+    "html",
+    "reports"
+  ],
+  "dependencies": {
+     "grunt": "0.x"
+  }
+  "author": "Mike Zhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bayofpigs/reports-generator/issues"
+  },
+  "homepage": "https://github.com/bayofpigs/reports-generator"
+}

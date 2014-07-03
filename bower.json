@@ -1,0 +1,25 @@
+{
+  "name": "reports-generator",
+  "version": "0.0.1",
+  "description": "Client-side reports generation",
+  "keywords": [
+    "reports",
+    "excel",
+    "pdf"
+  ],
+  "authors": [
+    "Mike Zhang"
+  ],
+  "dependencies": {
+     "lodash": "3.x",
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/bayofpigs/reports-generator",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
