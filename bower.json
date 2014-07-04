@@ -11,7 +11,10 @@
     "Mike Zhang"
   ],
   "dependencies": {
-     "lodash": "3.x",
+    "lodash": "2.x",
+    "jspdf": "1.x",
+    "js-xlsx": "0.x",
+    "require": "*"
   },
   "license": "MIT",
   "homepage": "https://github.com/bayofpigs/reports-generator",
