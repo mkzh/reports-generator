@@ -13,13 +13,16 @@
     "html",
     "reports"
   ],
-  "dependencies": {
-     "grunt": "0.x",
-     "grunt-contrib-clean": "0.x",
-     "grunt-contrib-copy": "0.x",
-     "grunt-contrib-uglify": "0.x",
-     "grunt-contrib-jshint": "0.x",
-     "grunt-contrib-requirejs": "0.x"
+  "devDependencies": {
+    "grunt": "0.x",
+    "grunt-contrib-clean": "0.x",
+    "grunt-contrib-copy": "0.x",
+    "grunt-contrib-uglify": "0.x",
+    "grunt-contrib-jshint": "0.x",
+    "grunt-contrib-requirejs": "0.x",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-connect": "~0.8.0",
+    "grunt-concurrent": "~0.5.0"
   },
   "author": "Mike Zhang",
   "license": "MIT",

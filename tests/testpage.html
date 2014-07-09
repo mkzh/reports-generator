@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>Test</title>
+    <script type="text/javascript" src="../bower_components/requirejs/require.js"></script>
+    <script>
+      /* load common code that includes the config, then load the logic for this page */
+      require(['app/config'], function(common) {
+        require(['app/sample']);
+      });
+    </script>
+  </head>
+  <body>
+    Reports generator test example 1
+  </body>
+</html>
