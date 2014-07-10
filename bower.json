@@ -14,7 +14,8 @@
     "lodash": "2.x",
     "jspdf": "1.x",
     "js-xlsx": "0.x",
-    "requirejs": "~2.1.14"
+    "requirejs": "~2.1.14",
+    "FileSaver.js": "eligrey/FileSaver.js"
   },
   "license": "MIT",
   "homepage": "https://github.com/bayofpigs/reports-generator",
