@@ -97,6 +97,20 @@ define(['xlsx', 'filesaver'], function(xlsx, saveAs) {
     this[coor] = cell;
   };
 
+  
+
+  Sheet.prototype.makeTrippy = function(col, row) {
+    var coor = xlsx.utils.encode_cell({c: col, r: row});
+    this[coor].s = {
+      numFmtId: 0,
+      fontId: '5',
+      fillId: 0,
+      borderId: '1',
+      xfId: '0',
+      applyFont: '1',
+      applyBorder: '1'
+    }
+  };
 
   return wrapper;
 

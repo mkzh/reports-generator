@@ -1,4 +1,4 @@
-require(['../dist/reports-generator.amd.min.js', 'xlwrapper'], function(ReportsGenerator, xlwrapper) {
+require(['../dist/reports-generator.amd.min.js', 'xlwrapper', 'table'], function(ReportsGenerator, xlwrapper, table) {
   console.log(xlwrapper);
 
   var xls = xlwrapper.createWorkbook("test2.xlsx");
@@ -9,6 +9,7 @@ require(['../dist/reports-generator.amd.min.js', 'xlwrapper'], function(ReportsG
   sheet1.set(2, 3, 5);
   sheet1.set(3, 3, new Date());
   sheet1.set(4, 3, true);
+  sheet1.makeTrippy(1, 3);
 
   xls.save();
 });
