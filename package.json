@@ -1,6 +1,6 @@
 {
   "name": "reports-generator",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Pdf/excel/html report generator with a focus on client-side generation",
   "main": "index.js",
   "repository": {

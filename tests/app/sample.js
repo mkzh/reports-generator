@@ -1,4 +1,4 @@
-require(['main'], function(ReportsGenerator) {
+require(['main', 'jspdf'], function(ReportsGenerator, jspdf) {
 
   // Basic sheet test
   /*
@@ -148,11 +148,14 @@ console.log(Table3);
     }
   }
 
-
+  /*
   ReportsGenerator.ExcelReport(excelObject, function(err, obj) {
     if (err) console.log("Big Trubble: " + err);
     obj.save("myfile");
   });
+  */
+ 
+  var doc = new jspdf();
   
 });
 

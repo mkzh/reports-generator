@@ -1,6 +1,50 @@
 // Table: a standard data structure for reports generation
 // Define the table module
 define(['lodash'], function(_) {
+  /* Helper methods */
+  var getLongestWidth = function(tables) {
+    var largestSize = 0;
+    for (var i = 0; i < tables.length; i++) {
+      var nextSize = tables[i].getNumColumns();
+      if (nextSize > largestSize) {
+        largestSize = nextSize;
+      }
+    }
+
+    return largestSize;
+  };
+
+  /* 
+   * Calculate set width of excel sheet
+   */
+  var getSheetWidth = function(tables) {
+    var PADDING = 10;
+    var largestSize = getLongestWidth(tables);
+
+    return largestSize + PADDING;
+  };
+
+  /*
+   * calculate sheet height of excel sheet
+   */
+  var getSheetHeight = function(tables, information) {
+    // Distance between each
+    var PADDING = 5;
+
+    // Height of the title and its padding
+    var TITLE_HEIGHT = 5;
+
+    var sheetHeight = 0;
+    var infoLength = (information) ? Object.keys(information).length * 3 + 5 : 0;
+    for (var i = 0; i < tables.length; i++) {
+      var nextHeight = tables[i].getNumEntries() + 1;
+      sheetHeight += nextHeight;
+      sheetHeight += PADDING;
+    }
+
+    return sheetHeight + TITLE_HEIGHT + infoLength;
+  };
+
   /* Table object definition */
   var Table = function(title, schema, labels) {
     // Entries in the table
@@ -92,6 +136,10 @@ define(['lodash'], function(_) {
   Table.prototype.getNumColumns = function() {
     return this.length;
   }
+
+  Table.getLongestWidth = getLongestWidth;
+  Table.getSheetWidth = getSheetWidth;
+  Table.getSheetHeight = getSheetHeight;
 
   return Table;
 })

@@ -1,49 +1,5 @@
 /* Excel report generator */
-define(['xlwrapper', 'lodash'], function(xls, _) {
-  /* Helper methods */
-  var getLongestWidth = function(tables) {
-    var largestSize = 0;
-    for (var i = 0; i < tables.length; i++) {
-      var nextSize = tables[i].getNumColumns();
-      if (nextSize > largestSize) {
-        largestSize = nextSize;
-      }
-    }
-
-    return largestSize;
-  }
-
-  /* 
-   * Calculate set width of excel sheet
-   */
-  var getSheetWidth = function(tables) {
-    var PADDING = 10;
-    var largestSize = getLongestWidth(tables);
-
-    return largestSize + PADDING;
-  }
-
-  /*
-   * calculate sheet height of excel sheet
-   */
-  var getSheetHeight = function(tables, information) {
-    // Distance between each
-    var PADDING = 5;
-
-    // Height of the title and its padding
-    var TITLE_HEIGHT = 5;
-
-    var sheetHeight = 0;
-    var infoLength = (information) ? Object.keys(information).length * 3 + 5 : 0;
-    for (var i = 0; i < tables.length; i++) {
-      var nextHeight = tables[i].getNumEntries() + 1;
-      sheetHeight += nextHeight;
-      sheetHeight += PADDING;
-    }
-
-    return sheetHeight + TITLE_HEIGHT + infoLength;
-  }
-
+define(['xlwrapper', 'table', 'lodash'], function(xls, Table, _) {
   var xlsreport = function(dataObject, callback) {
     var ReportObject = {};
 
@@ -65,8 +21,8 @@ define(['xlwrapper', 'lodash'], function(xls, _) {
       if (!sheetData || !sheetName) callback(new Error("Excel Write: Malformed excel object"));
 
       // Sheet width and height, used for sheed creation
-      var sheetWidth = getSheetWidth(sheetData.data);
-      var sheetHeight = getSheetHeight(sheetData.data, sheetData.information);
+      var sheetWidth = Table.getSheetWidth(sheetData.data);
+      var sheetHeight = Table.getSheetHeight(sheetData.data, sheetData.information);
 
       // Debug code
       console.log("Width: " + sheetWidth);
@@ -77,7 +33,7 @@ define(['xlwrapper', 'lodash'], function(xls, _) {
       var y = 1;
 
       // Set the width of columns in use
-      var longestTableWidth = getLongestWidth(sheetData.data);
+      var longestTableWidth = Table.getLongestWidth(sheetData.data);
       //console.log("Longest: " + longestTableWidth);
       var startIndex = Math.floor((sheetWidth - 2 * TABLE_MARGIN) / 2 - longestTableWidth / 2);
       for (var i = 1; i <= longestTableWidth; i++) {
