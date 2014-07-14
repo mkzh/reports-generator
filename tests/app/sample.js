@@ -28,12 +28,14 @@ var Table6 = new ReportsGenerator.Table("Table6", [String, Number], ["Name", "ag
 // var ErrLabelLen = new xls.Table("TableError2", ["string", "date", "boolean"], ["asdfasdf", "asdfasf"]);
 
 // Show me the tables
+/*
 console.log(Table1);
 console.log(Table2);
 console.log(Table3);
 console.log(Table4);
 console.log(Table5);
 console.log(Table6);
+*/
 
 // Now let us try pushing rows
 Table1.pushRow(["John Smith", 1, 2]);
@@ -46,11 +48,13 @@ Table3.pushRow(["Mike", new Date(), true, true]);
 // Table3.pushRow(["Mike", new Date(), 1, 1]);
 
 // After pushing a row
+/*
 console.log();
 console.log("After pushing");
 console.log(Table1);
 console.log(Table2);
 console.log(Table3);
+*/
 
 // Populate the tables
 (function() {
@@ -124,14 +128,14 @@ console.log(Table3);
   }
 
   })();
-
+  /*
   console.log(Table1);
   console.log(Table2);
   console.log(Table3);
   console.log(Table4);
   console.log(Table5);
   console.log(Table6);
-
+  */
   // Object to render
   var excelObject = {
     sheet1: {
@@ -155,7 +159,14 @@ console.log(Table3);
   });
   */
  
+  ReportsGenerator.PDFReport(excelObject, function(err, obj) {
+    if (err) console.log("Big Trubble: " + err);
+    obj.save("myfile");
+  });
+ 
   var doc = new jspdf();
+  console.log(doc);
+  console.log(doc.getFontList());
   
 });
 
