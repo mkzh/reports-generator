@@ -22,6 +22,9 @@ var Table3 = new ReportsGenerator.Table("Table3", [String, Date, Boolean, Boolea
 var Table4 = new ReportsGenerator.Table("Table4", [Date, Number], ["Day", "Number of Sales"]);
 var Table5 = new ReportsGenerator.Table("Table5", [Number, Number], ["EmployeeId", "Number of signins"]);
 var Table6 = new ReportsGenerator.Table("Table6", [String, Number], ["Name", "age"]);
+var LargeTable = new ReportsGenerator.Table("Long Table Test", [String, Number, Number, Number, Number, Number, Number, 
+  Number, Number, Number], ["Sport Name", "Activities", "Participants", "Juniors", "Youth", "Adults", "Veterans", "Volunteers",
+            "Volunteer Hours", "Funtime"]);
 
 // Erroneous code
 // var ErrSchematype = new xls.Table("TableError1", ["string", "widget"], ["asdfasd", "asdfasdf"]);
@@ -95,6 +98,14 @@ console.log(Table3);
     return Math.floor(Math.random() * 100) + 1;
   };
 
+  var getSport = function() {
+    var sportsTitles = ["Goal", "Basket", "Foot", "Soft", "Dodge", "Good", "Bad",
+                        "Fat", "Skinny",  "HardCore", "NonHardCore", "Insolent", 
+                        "Obedient", "Friendly", "Mean"];
+
+    return sportsTitles[Math.floor(Math.random() * sportsTitles.length)] + "ball";
+  };
+
 
   // Population logic
   var numEntries = getNumber();
@@ -127,6 +138,12 @@ console.log(Table3);
     Table6.pushRow([getNameString(), getNumber()]);
   }
 
+  numEntries = getNumber();
+  for (var i = 0; i < numEntries; i++) {
+    LargeTable.pushRow([getSport(), getNumber(), getNumber(), getNumber(), getNumber(),
+                                    getNumber(), getNumber(), getNumber(), getNumber(), getNumber()])
+  }
+
   })();
   /*
   console.log(Table1);
@@ -148,9 +165,32 @@ console.log(Table3);
     },
     sheet2: {
       name: "Sheet 2",
-      data: [Table4, Table5, Table6]
+      data: [Table4, Table5, Table6, LargeTable]
     }
   }
+
+  var getRandomField = function() {
+    var adj1 = ["Total", "Overall", "Monthly", "Annual", "Quarterly", "Centennial", "Bi-Centennial", "Semester"];
+    var nouns = ["Oompa Loompa", "Profit", "CS Major Registration", "Graduates", "Burned Out Math Major",
+                 "Salary", "Employee", "Inverse Social Savant", "Awkward Boy", "League of Legends Addict",
+                 "Food", "Donations", "Weather"];
+    var postfix = ["Reports", "Counts", "Specialists", "Majors", "PhDs", "Documentation", "Broadcasts"];
+
+    var randAdj = adj1[Math.floor(Math.random() * adj1.length)];
+    var randNoun = nouns[Math.floor(Math.random() * nouns.length)];
+    var randPostfix = postfix[Math.floor(Math.random() * postfix.length)];
+
+    return randAdj + " " + randNoun + " " + randPostfix;
+  }
+
+  // Populate the hell out of information
+  /*
+  for (var i = 0; i < 1000; i++) {
+    var randField = getRandomField();
+    var randNum = Math.floor(Math.random() * 10000);
+    excelObject.sheet1.information[randField] = randNum;
+  }
+  */
 
   /*
   ReportsGenerator.ExcelReport(excelObject, function(err, obj) {
