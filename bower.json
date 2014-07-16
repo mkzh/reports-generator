@@ -13,7 +13,7 @@
   "authors": [
     "Mike Zhang"
   ],
-  "dependencies": {
+  "devDependencies": {
     "lodash": "2.x",
     "jspdf": "1.x",
     "js-xlsx": "0.x",
