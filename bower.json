@@ -7,6 +7,9 @@
     "excel",
     "pdf"
   ],
+  "main": [
+    "./dist/compiled-generator.min.js"
+  ],
   "authors": [
     "Mike Zhang"
   ],
