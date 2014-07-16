@@ -1,38 +1,4 @@
 /* Pdf report generator */
-/* JSPDF api (quick reference) :
- ****************************************
- *  (where doc is an instance of jspdf)
- *  // Text
- *  // Methods can be chained
- * doc.setTextColor(r, g, b)
- * doc.text(x, y, text)
- * doc.addPage()
- * doc.setFont(fontFamily)
- * doc.setFontType(fontType)
- * doc.setFontSize
- *  // Draw
- * doc.setDrawColor(r, g, b)
- * doc.setFillColor(r, g, b)
- * doc.rect(x, y, width, height)
- * doc.setLineWidth(width)
- * doc.line
- *
- * Document objects: 
- * var excelObject = {
-    sheet1: {
-      name: "Sheet 1", 
-      information: {
-        generated: new Date(),
-        author: "Mike Zhang"
-      },
-      data: [Table1, Table2, Table3]
-    },
-    sheet2: {
-      name: "Sheet 2",
-      data: [Table4, Table5, Table6]
-    }
-  }
- ****************************************/
 define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
   var dim_letter = {x: 612, y: 792};
   var dim_a4 = {x: 595, y: 842};
@@ -200,7 +166,93 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
     // Set the table font size
     doc.setFontSize(tableFontSize);
 
+    /* Helper functions for writing rows */
+    // Splits content down into writable pieces
+    var textCut = function(doc, content, maxSize) {
+      var contentText = content.toString();
+      if (content instanceof Date) {
+        contentText = contentText.substring(0, 15);
+      }
+
+      var contentSize = doc.getStringUnitWidth(content) * tableFontSize;
+      var contentChars = contentText.length;
+      var contentArr = [];
+      if (contentSize >= maxSize) {
+        // Text is too large, must explode it into components
+        var numDivisions = Math.ceil(contentSize / maxSize);
+        var divisionChars = Math.ceil(contentChars / numDivisions);
+
+        /*
+        console.log("For content: " + content);
+        console.log("Divisions: " + numDivisions);
+        console.log("Chars per division: " + divisionChars);
+        */
+       
+        for (var interval = 0; interval < numDivisions; interval++) {
+          var start = divisionChars * interval;
+          var end = divisionChars * (interval + 1);
+          end = (end <= contentChars) ? end : contentChars;
+
+          contentArr[contentArr.length] = contentText.substring(start, end);
+        }
+      } else {
+        // No need to explode the text, just return it as-is
+        // console.log(content);
+        return contentText;
+      }
+
+      console.log(contentArr);
+      return contentArr;
+    };
+
+    // Write a given element at a specific x coordinate
+    var writeElement = function(doc, element, x) {
+      var finalHeight = height;
+      if (element instanceof Array) {
+        //console.log("Entered Array");
+        for (var i = 0; i < element.length; i++) {
+          var toWrite = element[i];
+
+          // Append a dash if this section is not the last section
+          if (i != element.length - 1) {
+            toWrite += "-";
+          }
+
+          doc.text(x, finalHeight + tableFontSize, toWrite);
+          finalHeight += tableFontSize + rowGap;
+        }
+      } else {
+        //console.log("Entered Regular");
+        doc.text(x, finalHeight + tableFontSize, element);
+        finalHeight += tableFontSize + rowGap;
+      }
+      //console.log(finalHeight);
+      return finalHeight;
+    };
+
+    // Row writing helper function
+    var writeRow = function(doc, row) {
+      var maxHeight = height;
+      for (var el = 0; el < row.length; el++) {
+        var partition = partitions[el];
+        var start = partition.partStart;
+        var toWrite = row[el];
+        var content = textCut(doc, toWrite, partition.partSize);
+        var thisHeight = writeElement(doc, content, start);
+        //console.log("Max: " + maxHeight);
+        //console.log("This: " + thisHeight);
+
+        if (maxHeight < thisHeight) maxHeight = thisHeight;
+      }
+
+      //console.log(maxHeight);
+      return maxHeight;
+    };
+
     // Draw the headings
+    height = writeRow(doc, labels)
+
+    /*
     for (var part = 0; part < numPartitions; part++) {
       var start = partitions[part].partStart;
       var label = labels[part];
@@ -209,15 +261,17 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
 
       doc.text(start, height + tableFontSize, label);
     }
+    */
 
     // Update the height
-    height += tableFontSize + rowGap;
+    // height += tableFontSize + rowGap;
 
     // Set the standard table font
     doc.setFont("helvetica", "normal");
     
     // Draw each row
     for (var i = 0; i < numRows; i++) {
+      /*
       for (var part = 0; part < numPartitions; part++) {
         var start = partitions[part].partStart;
         var entry = rows[i][part].toString();
@@ -228,6 +282,9 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
       }
 
       height += tableFontSize + rowGap;
+      */
+     
+      height = writeRow(doc, rows[i]);
       if (height > maximumBottomSize) {
         height = margin;
         doc.addPage();
