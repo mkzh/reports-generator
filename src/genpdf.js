@@ -10,6 +10,16 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
   var size = dim_letter;
 
   /* Helper functions */
+  /* Split the date into the Month, Date, Year */
+  var splitDateShort = function(date) {
+    return date.toString().substring(0, 15);
+  }
+
+  /* Split date into Month, Date, Year and time of day */
+  var splitDateLong = function(date) {
+    return date.toString().substring(0, 24);
+  }
+
   var drawTitle = function(doc, title, height) {
     var MAX_SIZE = 50;
 
@@ -83,7 +93,11 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
         doc.addPage();
       }
       var heading = infoTabs[i].toString();
-      var entry = information[heading].toString();
+      var entryComponent = information[heading];
+      var entry = entryComponent.toString();
+      if (entryComponent instanceof Date) {
+        entry = splitDateLong(entry);
+      }
 
       // Where to start the heading/entry, from the x direction
       var headingStart = start;
@@ -133,7 +147,7 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
     doc.setFontSize(titleFontSize);
 
     // Attempt to create a new page in the event that a table could get cut off
-    var totalTableHeight = titleFontSize + rowGap + (tableFontSize + rowGap) * numRows;
+    var totalTableHeight = titleFontSize + rowGap + (tableFontSize + rowGap) * (numRows + 1);
     if (totalTableHeight + height > maximumBottomSize) {
       // If the table is not too large for one page, we create a new page
       if (totalTableHeight < maximumBottomSize) {
@@ -144,7 +158,17 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
 
     // Draw the title
     doc.text(size.x / 2 - (titleFontSize * titleUnit) / 2, height + titleFontSize, title);
+
+    // Draw a line above the title
+    doc.setLineWidth(1);
+    doc.line(start, height, end, height);
+    doc.setLineWidth(.5);
     height += titleFontSize + rowGap;
+
+    // Draw a line below the title
+    doc.setLineWidth(1);
+    doc.line(start, height, end, height);
+    doc.setLineWidth(.5);
 
     // Get the table partitions (where each section is allowed to draw)
     var partitions = [];
@@ -235,10 +259,10 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
       var maxHeight = height;
       for (var el = 0; el < row.length; el++) {
         var partition = partitions[el];
-        var start = partition.partStart;
+        var partStart = partition.partStart;
         var toWrite = row[el];
         var content = textCut(doc, toWrite, partition.partSize);
-        var thisHeight = writeElement(doc, content, start);
+        var thisHeight = writeElement(doc, content, partStart);
         //console.log("Max: " + maxHeight);
         //console.log("This: " + thisHeight);
 
@@ -246,6 +270,12 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
       }
 
       //console.log(maxHeight);
+      // Draw a line below
+      doc.line(start, maxHeight, end, maxHeight);
+      for (var el = 0; el < row.length; el++) {
+
+      }
+
       return maxHeight;
     };
 
