@@ -1,6 +1,8 @@
 {
   baseUrl: '../src',
-  dir: "../dist",
+  name: "main",
+  out: "../dist/compiled-generator.min.js",
+  /*dir: "../dist", */
   paths: {
     xlsx: "../bower_components/js-xlsx/dist/xlsx.core.min",
     jspdf: "../bower_components/jspdf/dist/jspdf.min",
@@ -21,10 +23,5 @@
     filesaver: {
       exports: 'saveAs'
     }
-  },
-  modules: [
-    {
-      name: "main"
-    }
-  ]
+  }
 }

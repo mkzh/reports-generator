@@ -4,7 +4,19 @@
     <script type="text/javascript" src="../bower_components/requirejs/require.js"></script>
     <script>
       /* load common code that includes the config, then load the logic for this page */
-      require(['../dist/reports-generator-sample.min'], function(ReportsGenerator) {
+      require({
+        paths: {
+          "main": "../dist/compiled-generator.min",
+          "genxl": "../dist/compiled-generator.min",
+          "genpdf": "../dist/compiled-generator.min",
+          "xlsx": "../dist/compiled-generator.min",
+          "jspdf": "../dist/compiled-generator.min",
+          "xlwrapper": "../dist/compiled-generator.min",
+          "filesaver": "../dist/compiled-generator.min"
+        }
+      },
+      ['main'], 
+      function(ReportsGenerator) {
         console.log(ReportsGenerator);
       });
     </script>
