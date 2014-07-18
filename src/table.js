@@ -70,6 +70,30 @@ define(['lodash'], function(_) {
   };
 
   /*
+   * Alternative initialization scheme for table: duplicate an already existing table object
+   */
+  Table.initializeFromTable = function(other) {
+    var schema = other.schema;
+    var title = other.title;
+    var labels = other.labels;
+    var rows = other.rows;
+
+    var table = new Table(title, schema, labels);
+    table.pushRows(rows);
+
+    return table;
+  }
+
+  /*
+   * Add multiple rows of elements to a table
+   */
+  Table.prototype.pushRows = function(rows) {
+    for (var i = 0; i < rows.length; i++) {
+      this.pushRow(rows[i]);
+    }
+  }
+
+  /*
    * Add a row of elements to a table. 
    */
   Table.prototype.pushRow = function(row) {

@@ -199,14 +199,21 @@ console.log(Table3);
   });
   */
  
+  /*
   ReportsGenerator.PDFReport(excelObject, function(err, obj) {
     if (err) console.log("Big Trubble: " + err);
     obj.save("myfile");
   });
+*/
  
   var doc = new jspdf();
   console.log(doc);
   console.log(doc.getFontList());
+
+  var tableDuplication = ReportsGenerator.Table.initializeFromTable(Table1);
+
+  console.log(Table1);
+  console.log(tableDuplication);
   
 });
 
