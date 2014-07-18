@@ -6,12 +6,25 @@
       /* load common code that includes the config, then load the logic for this page */
       require({
         paths: {
-          "main": "../dist/compiled-generator.min",
+          "main": "../dist/compiled-generator.min"
         }
       },
       ['main'], 
       function(ReportsGenerator) {
         console.log(ReportsGenerator);
+        ReportsGenerator.ExcelReport({
+          sheet1: {
+            name: "Derp Sheet",
+            information: {
+              derp: "Derpmerp",
+              herp: "Biggerp"
+            },
+            data: []
+          }
+        }, function(err, obj) {
+          console.log(obj);
+          obj.save("Mahfile");
+        });
       });
     </script>
   </head>

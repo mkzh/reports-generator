@@ -25,6 +25,6 @@
     }
   },
   uglify: {
-    drop_console: true
+    drop_console: true,
   }
 }

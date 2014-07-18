@@ -191,18 +191,19 @@ console.log(Table3);
     excelObject.sheet1.information[randField] = randNum;
   }
   */
-
+  /*
   ReportsGenerator.ExcelReport(excelObject, function(err, obj) {
     if (err) console.log("Big Trubble: " + err);
     obj.save("myfile");
   });
+*/
  
-  /*
+  
   ReportsGenerator.PDFReport(excelObject, function(err, obj) {
     if (err) console.log("Big Trubble: " + err);
     obj.save("myfile");
   });
-*/
+
  
   var doc = new jspdf();
   console.log(doc);
