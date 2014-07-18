@@ -1,7 +1,7 @@
 {
   baseUrl: '../src',
   name: "main",
-  out: "../dist/compiled-generator.min.js",
+  out: "../dist/compiled-generator.js",
   /*dir: "../dist", */
   paths: {
     xlsx: "../bower_components/js-xlsx/dist/xlsx.core.min",
@@ -25,6 +25,8 @@
     }
   },
   uglify: {
-    drop_console: true
+    drop_console: true,
+    beautify: true,
+    mangle: false
   }
 }
