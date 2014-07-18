@@ -192,12 +192,10 @@ console.log(Table3);
   }
   */
 
-  /*
   ReportsGenerator.ExcelReport(excelObject, function(err, obj) {
     if (err) console.log("Big Trubble: " + err);
     obj.save("myfile");
   });
-  */
  
   /*
   ReportsGenerator.PDFReport(excelObject, function(err, obj) {

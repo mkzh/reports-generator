@@ -77,6 +77,12 @@ define(['xlsx', 'filesaver'], function(xlsx, saveAs) {
       return buf;
     }
 
+    // Add extension if necessary
+    var ext = file_name.substring(file_name.length - 5);
+    if (ext !== ".xlsx") {
+      file_name += ".xlsx";
+    }
+
     saveAs(new Blob([s2ab(wbout)], {type: ""}), file_name);
   }; 
 
