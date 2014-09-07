@@ -1,6 +1,6 @@
 {
   "name": "reports-generator",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "description": "Client-side reports generation",
   "keywords": [
     "reports",
