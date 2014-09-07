@@ -83,7 +83,7 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
     // let minSize = the size of the font. Where minSize, defined above, is the smallest font size
     // needed to fit the text within the table
     doc.setFontSize(minSize);
-    //console.log("Font size was set to: " + minSize);
+    //
 
     /* Draw information based on fetched font size information */
     for (var i = 0; i < infoTabs.length; i++) {
@@ -184,7 +184,7 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
         partMid: calcMid
       }
 
-      console.log(partitions[i]);
+      
     }
 
     // Set the table font size
@@ -207,9 +207,9 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
         var divisionChars = Math.ceil(contentChars / numDivisions);
 
         /*
-        console.log("For content: " + content);
-        console.log("Divisions: " + numDivisions);
-        console.log("Chars per division: " + divisionChars);
+        
+        
+        
         */
        
         for (var interval = 0; interval < numDivisions; interval++) {
@@ -221,11 +221,11 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
         }
       } else {
         // No need to explode the text, just return it as-is
-        // console.log(content);
+        // 
         return contentText;
       }
 
-      console.log(contentArr);
+      
       return contentArr;
     };
 
@@ -233,7 +233,7 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
     var writeElement = function(doc, element, x) {
       var finalHeight = height;
       if (element instanceof Array) {
-        //console.log("Entered Array");
+        //
         for (var i = 0; i < element.length; i++) {
           var toWrite = element[i];
 
@@ -246,11 +246,11 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
           finalHeight += tableFontSize + rowGap;
         }
       } else {
-        //console.log("Entered Regular");
+        //
         doc.text(x, finalHeight + tableFontSize, element);
         finalHeight += tableFontSize + rowGap;
       }
-      //console.log(finalHeight);
+      //
       return finalHeight;
     };
 
@@ -263,13 +263,13 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
         var toWrite = row[el];
         var content = textCut(doc, toWrite, partition.partSize);
         var thisHeight = writeElement(doc, content, partStart);
-        //console.log("Max: " + maxHeight);
-        //console.log("This: " + thisHeight);
+        //
+        //
 
         if (maxHeight < thisHeight) maxHeight = thisHeight;
       }
 
-      //console.log(maxHeight);
+      //
       // Draw a line below
       doc.line(start, maxHeight, end, maxHeight);
       for (var el = 0; el < row.length; el++) {
@@ -352,7 +352,7 @@ define(['jspdf', 'table', 'lodash'], function(jspdf, Table, _) {
       height = drawTitle(doc, name, height);
 
       // After Height
-      // console.log("After title height: " + height);
+      // 
 
       if (information) {
         height = drawInformation(doc, information, height);

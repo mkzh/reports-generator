@@ -25,8 +25,8 @@ define(['xlwrapper', 'table', 'lodash'], function(xls, Table, _) {
       var sheetHeight = Table.getSheetHeight(sheetData.data, sheetData.information);
 
       // Debug code
-      console.log("Width: " + sheetWidth);
-      console.log("Height: " + sheetHeight);
+      
+      
 
       var sheet = workbook.createSheet(sheetName, sheetWidth, sheetHeight);
       var center = Math.floor(sheetWidth / 2);
@@ -34,16 +34,16 @@ define(['xlwrapper', 'table', 'lodash'], function(xls, Table, _) {
 
       // Set the width of columns in use
       var longestTableWidth = Table.getLongestWidth(sheetData.data);
-      //console.log("Longest: " + longestTableWidth);
+      //
       var startIndex = Math.floor((sheetWidth - 2 * TABLE_MARGIN) / 2 - longestTableWidth / 2);
       for (var i = 1; i <= longestTableWidth; i++) {
-        //console.log("Set column length for " + (i + TABLE_MARGIN + startIndex));
+        //
         sheet.width(i + TABLE_MARGIN + startIndex, 20);
       }
 
       // Debug code
-      console.log("center: " + center);
-      console.log("y: " + y);
+      
+      
 
       // Set the title of the sheet
       sheet.set(center, y, sheetData.name);

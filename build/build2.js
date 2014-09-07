@@ -22,5 +22,8 @@
     filesaver: {
       exports: 'saveAs'
     }
+  },
+  uglify: {
+    drop_console: true
   }
 }

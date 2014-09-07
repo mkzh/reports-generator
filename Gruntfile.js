@@ -5,8 +5,18 @@ module.exports = function(grunt) {
     jshint: {
       files: ['src/main.js']
     },
+    removelogging: {
+      dist: {
+        src: "src/*.js"
+      }
+    },
     uglify: {
       dist: {
+        options: {
+          compress: {
+            drop_console: true
+          }
+        },
         files: {
           'dist/<%= pkg.name %>.amd.min.js' : ['src/main.js']
         }
@@ -38,6 +48,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-contrib-connect");
   grunt.loadNpmTasks("grunt-concurrent");
+  grunt.loadNpmTasks("grunt-remove-logging");
 
-  grunt.registerTask('default', ['jshint', 'uglify', 'concurrent:target']);
+  grunt.registerTask('default', ['removelogging', 'jshint', 'uglify', 'concurrent:target']);
 };

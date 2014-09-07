@@ -24,8 +24,8 @@ define(['xlsx', 'filesaver'], function(xlsx, saveAs) {
 
   var Sheet = function(sheet_name, column_count, row_count) {
     var range = {s: {c: 0, r: 0}, e: {c: column_count, r: row_count} };
-    console.log(range);
-    console.log(xlsx.utils.encode_range(range));
+    
+    
 
     this.sheet_name = sheet_name;
     this['!ref'] = xlsx.utils.encode_range(range);
@@ -65,7 +65,7 @@ define(['xlsx', 'filesaver'], function(xlsx, saveAs) {
 
   /* Save the current workbook */
   Workbook.prototype.save = function(file_name) {
-    console.log(this);
+    
     var wopts = { bookType: 'xlsx', bookSST: true, type: 'binary' };
     var wbout = xlsx.write(this, wopts);
 
@@ -92,7 +92,7 @@ define(['xlsx', 'filesaver'], function(xlsx, saveAs) {
     var cell = {v: val};
 
     if (cell.v == null) {
-      console.error("Attempting to write a null value, not doing anything");
+      
       return;
     }
 

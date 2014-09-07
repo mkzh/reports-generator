@@ -139,9 +139,9 @@ define(['lodash'], function(_) {
 
     // Debug code
     /*
-    console.log("Attempting to push this array: ");
-    console.log(arr);
-    console.log("Has length: " + arr.length);
+    
+    
+    
     */
 
     this.pushRow(arr);
